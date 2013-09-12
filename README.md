@@ -7,9 +7,12 @@ mjlt (major link tool) dot net api is a library wrapping the mjlt.biz site.  The
 # Examples
 
 # Create a new short url
+```c#
 var c = new LibMjlt.Mjlt();
 c.UserAgent = "Your Program Name";
 string shortUrl = c.Create("http://www.some-example-website.com/some-long-very-very-long-page-on-the-site.html");
+```
+
 
 ## Retrieve 11 random sites
 
