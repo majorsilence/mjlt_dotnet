@@ -102,7 +102,16 @@ namespace LibMjlt
 
             string value = client.DownloadString(url);
 #if Android
-			var returnValue = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LibMjlt.Poco.RandomSites>> (value);
+			var returnValue = new List<LibMjlt.Poco.RandomSites>();
+
+			var obj = System.Json.JsonObject.Parse(value);
+			for(int i=0; i<obj.Count; i++)
+			{
+				var jsonvalue = obj[i];
+
+				var item = new LibMjlt.Poco.RandomSites(jsonvalue["Code"], jsonvalue["url"]);
+				returnValue.Add(item);
+			}
 			return returnValue;
 
 #else
@@ -126,8 +135,19 @@ namespace LibMjlt
             string value = client.DownloadString(url);
 
 #if Android
-			var returnValue = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LibMjlt.Poco.TopSites>> (value);
+
+			var returnValue = new List<LibMjlt.Poco.TopSites>();
+
+			var obj = System.Json.JsonObject.Parse(value);
+			for(int i=0; i<obj.Count; i++)
+			{
+				var jsonvalue = obj[i];
+
+				var item = new LibMjlt.Poco.TopSites(jsonvalue["Count"], jsonvalue["Url_Id"], jsonvalue["Url"]);
+				returnValue.Add(item);
+			}
 			return returnValue;
+
 
 #else
             var j = new System.Web.Script.Serialization.JavaScriptSerializer();
