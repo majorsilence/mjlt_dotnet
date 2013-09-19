@@ -101,11 +101,18 @@ namespace LibMjlt
             client.Headers.Add(HttpRequestHeader.UserAgent, UrlInfo.UserAgent + this.UserAgent);
 
             string value = client.DownloadString(url);
+#if Android
+			var returnValue = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LibMjlt.Poco.RandomSites>> (value);
+			return returnValue;
 
-            var j = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var returnValue = j.Deserialize<List<LibMjlt.Poco.RandomSites>>(value);
+#else
+			var j = new System.Web.Script.Serialization.JavaScriptSerializer();
+			var returnValue = j.Deserialize<List<LibMjlt.Poco.RandomSites>>(value);
+			return returnValue;
+#endif
 
-            return returnValue;
+
+            
         }
 
 
@@ -118,11 +125,17 @@ namespace LibMjlt
             client.Headers.Add(HttpRequestHeader.UserAgent, UrlInfo.UserAgent + this.UserAgent);
             string value = client.DownloadString(url);
 
+#if Android
+			var returnValue = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LibMjlt.Poco.TopSites>> (value);
+			return returnValue;
 
+#else
             var j = new System.Web.Script.Serialization.JavaScriptSerializer();
             var returnValue = j.Deserialize<List<LibMjlt.Poco.TopSites>>(value);
+			return returnValue;
+#endif
 
-            return returnValue;
+            
 
         }
 
